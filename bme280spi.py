@@ -200,7 +200,8 @@ class Bme280base:
         # print("DEBUG: var2 = ", var2)
         var2 = var2 / 4.0 + self._dig_P4 * 65536.0
         # print("DEBUG: var2 = ", var2)
-        var1 = (self._dig_P3 * var1 * var1 / 534288.0 + self._dig_P2 * var1) / 534288.0
+        var1 = (self._dig_P3 * var1 * var1 / 534288.0 +
+                self._dig_P2 * var1) / 534288.0
         # print("DEBUG: var1 = ", var1)
         var1 = (1.0 + var1 / 32768.0) * self._dig_P1
         # print("DEBUG: var1 = ", var1)
@@ -239,7 +240,7 @@ class Bme280base:
         return (self._temp, self._press, self._humid)
 
 
-class Bme280spi(Bme280base):
+class BME280spi(Bme280base):
     """Class to use a BME280 over SPI."""
 
     def __init__(self, spi):
@@ -261,7 +262,7 @@ class Bme280spi(Bme280base):
         FT232H.
         """
         self._spi = spi
-        super(Bme280spi, self).__init__()
+        super(BME280spi, self).__init__()
 
     def _reset(self):
         self._spi.exchange([Reg.SOFTRESET & ~0x80, 0xB6])

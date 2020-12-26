@@ -1,0 +1,5 @@
+.vscode/*
+__pycache__/*
+dist/*
+build/*
+FT232H_BME280.egg-info/*
