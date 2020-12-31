@@ -36,16 +36,15 @@ class BME280Reader:
         if self.bme280 != None:
             return True
 
-        log(LogLevel.INFO, "Connecting to FT232H via SPI")
-        spiController = SpiController()
-        spiController.configure(self.config.deviceURI)
-        spi = spiController.get_port(self.config.chipSelect.value)
-        spi.set_frequency(self.config.busFrequency)
-
         try:
+            log(LogLevel.INFO, "Connecting to FT232H via SPI")
+            spiController = SpiController()
+            spiController.configure(self.config.deviceURI)
+            spi = spiController.get_port(self.config.chipSelect.value)
+            spi.set_frequency(self.config.busFrequency)
             self.bme280 = BME280spi(spi)
-        except RuntimeError as err:
-            log(LogLevel.ERROR, "Failed to connect to BME280: %s" % err)
+        except Exception as e:
+            log(LogLevel.ERROR, "Failed to connect to BME280: %s" % e)
             return False
         return True
 
